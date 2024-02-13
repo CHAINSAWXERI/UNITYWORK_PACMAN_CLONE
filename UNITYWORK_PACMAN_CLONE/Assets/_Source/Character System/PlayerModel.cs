@@ -6,19 +6,22 @@ using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-public class PlayerModel
+namespace CharacterSystem
 {
-    public int Score;
-    public int Health;
-
-    public void AddScore(int value)
+    public class PlayerModel
     {
-        Score += value;
-    }
+        public int Score;
+        public int Health;
 
-    public void SubtractLife(int value)
-    {
-        Health -= value;
+        public void AddScore(int value)
+        {
+            Score += value;
+        }
+
+        public void SubtractLife(int value)
+        {
+            Health -= value;
+        }
     }
 }
 

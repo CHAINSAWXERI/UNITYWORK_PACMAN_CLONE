@@ -4,27 +4,30 @@ using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerController 
+namespace CharacterSystem
 {
-    private PlayerModel _scoreModel;
-    private PlayerView _scoreView;
-
-    public PlayerController(PlayerModel scoreModel, PlayerView scoreView)
+    public class PlayerController
     {
-        _scoreModel = scoreModel;
-        _scoreView = scoreView;
-    }
+        private PlayerModel _scoreModel;
+        private PlayerView _scoreView;
 
-    public void GetScore(int AddScore)
-    {
-        _scoreModel.AddScore(AddScore);
-        _scoreView.UpdateText(_scoreModel.Score);
-    }
+        public PlayerController(PlayerModel scoreModel, PlayerView scoreView)
+        {
+            _scoreModel = scoreModel;
+            _scoreView = scoreView;
+        }
 
-    public void GetHealth()
-    {
-        _scoreModel.SubtractLife(1);
-        _scoreView.UpdateHealth(_scoreModel.Health);
+        public void GetScore(int AddScore)
+        {
+            _scoreModel.AddScore(AddScore);
+            _scoreView.UpdateText(_scoreModel.Score);
+        }
+
+        public void GetHealth()
+        {
+            _scoreModel.SubtractLife(1);
+            _scoreView.UpdateHealth(_scoreModel.Health);
+        }
     }
 }
 

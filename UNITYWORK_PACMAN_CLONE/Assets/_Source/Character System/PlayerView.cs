@@ -4,23 +4,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerView : MonoBehaviour
+namespace CharacterSystem
 {
-    [SerializeField] public TMP_Text scoreText;
-    [SerializeField] public Slider lifesSlider;
-    public int score { get; private set; }
-    public int lifes { get; private set; }
-
-    public void UpdateText(int value)
+    public class PlayerView : MonoBehaviour
     {
-        score = value;
-        scoreText.text = $"Score: {score}";
-    }
+        [SerializeField] public TMP_Text scoreText;
+        [SerializeField] public Slider lifesSlider;
+        public int score { get; private set; }
+        public int lifes { get; private set; }
 
-    public void UpdateHealth(int value)
-    {
-        lifes = value;
-        lifesSlider.value = lifes;
+        public void UpdateText(int value)
+        {
+            score = value;
+            scoreText.text = $"Score: {score}";
+        }
+
+        public void UpdateHealth(int value)
+        {
+            lifes = value;
+            lifesSlider.value = lifes;
+        }
     }
 }
 
