@@ -12,7 +12,6 @@ namespace BonusSystems
     {
         [SerializeField] public Boostraper boostraper;
         [SerializeField] public int points;
-        [SerializeField] public int layerId;
         int layer_number;
         LayerMask layermask;
 
@@ -26,7 +25,6 @@ namespace BonusSystems
         {
             if (layermask == (layermask | (1 << layer_number)))
             {
-                Debug.Log("YES");
                 boostraper.playerController.GetScore(points);
                 gameObject.SetActive(false);
             }
