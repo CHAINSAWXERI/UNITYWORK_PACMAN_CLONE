@@ -5,7 +5,7 @@ namespace CharacterSystem
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public float speed = 5.0f;
+        public float speed;
         private Rigidbody2D rb;
 
         void Start()
@@ -18,7 +18,7 @@ namespace CharacterSystem
             float horizontalMove = Input.GetAxis("Horizontal");
             float verticalMove = Input.GetAxis("Vertical");
 
-            Vector2 movement = new Vector2(horizontalMove, verticalMove).normalized * speed;
+            Vector2 movement = new Vector2(horizontalMove, verticalMove) * speed;
 
             rb.velocity = movement;
         }
