@@ -2,7 +2,6 @@ using Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Core;
 using CharacterSystem;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
