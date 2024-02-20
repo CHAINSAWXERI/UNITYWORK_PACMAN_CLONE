@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class GhostAiMovement : MonoBehaviour
 {
-    public float speed;
-    public float viewRadius;
-    public LayerMask playerLayer;
-    public LayerMask wallLayer;
+    [SerializeField] public Transform playerTransform;
+    [SerializeField] public float speed;
+    [SerializeField] private float viewRadius;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private LayerMask wallLayer;
 
-    private Transform playerTransform;
-    private Vector3 direction;
-    private int randomDirection;
+    public Vector3 direction { get; private set; }
+    public int randomDirection { get; private set; }
+
+    private IModeStrategy currentStrategy;
+    public ModePerformer performer;
+    public VagrancyModeStrategy _modeVagrancyStrategy;
+    public PursuitModeStrategy _modePursuitStrategy;
 
     void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         randomDirection = Random.Range(0, 4);
     }
 
@@ -24,76 +28,39 @@ public class GhostAiMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, playerTransform.position - transform.position, viewRadius, playerLayer);
         if (hit.collider != null)
         {
-            PursuitMode();
+            PerformPursuitMode();
         }
         else
         {
-            VagrancyMode();
-        }
-    }
-
-    public void PursuitMode()
-    {
-        direction = playerTransform.position - transform.position;
-        transform.Translate(direction * speed * Time.deltaTime);
-    }
-
-    public void VagrancyMode()
-    {
-        // Инициализация случайного направления
-        
-        if (randomDirection == 0)
-        {
-            transform.Translate(Vector2.up * speed * Time.deltaTime);
-        }
-        else if (randomDirection == 1)
-        {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
-        }
-        else if (randomDirection == 2)
-        {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        }
-        else if (randomDirection == 3)
-        {
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
+            PerformVagrancyMode();
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("1");
-        if (collision.gameObject.layer == wallLayer.value)
+        if (wallLayer == (wallLayer | (1 << collision.gameObject.layer)))
         {
-            Debug.Log("2");
-            randomDirection = Random.Range(0, 4);
+            _modeVagrancyStrategy.randomDirection = Random.Range(0, 4);
         }
+    }
+
+    public void PerformPursuitMode()
+    {
+        performer.PerformMode(_modePursuitStrategy);
+    }
+
+    public void PerformVagrancyMode()
+    {
+        performer.PerformMode(_modeVagrancyStrategy);
+    }
+
+    public void SetStrategy(IModeStrategy strategy)
+    {
+        currentStrategy = strategy;
+    }
+
+    public void PerformMode()
+    {
+        currentStrategy.PerformMode();
     }
 }
-
-
-//PursuitMode -
-//VagrancyMode -
-/*
-    public float speed = 10.0f;
-    public float viewRadius = 10.0f;
-    public LayerMask playerLayer;
-
-    private Transform playerTransform;
-    private Vector3 direction;
-
-    void Start()
-    {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    void Update()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerTransform.position - transform.position, viewRadius, playerLayer);
-        if (hit.collider != null)
-        {
-            direction = playerTransform.position - transform.position;
-            transform.Translate(direction.normalized * speed * Time.deltaTime);
-        }
-    }
-*/

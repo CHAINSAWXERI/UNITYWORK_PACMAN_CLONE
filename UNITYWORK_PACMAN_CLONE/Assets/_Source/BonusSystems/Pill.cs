@@ -9,20 +9,13 @@ namespace BonusSystems
 {
     public class Pill : MonoBehaviour
     {
-        [SerializeField] public Boostraper boostraper;
+        [SerializeField] private Boostraper boostraper;
         [SerializeField] public int points;
-        int layer_number;
-        LayerMask layermask;
-
-        void Start()
-        {
-            layer_number = LayerMask.NameToLayer("Player");
-            layermask = 1 << layer_number;
-        }
+        [SerializeField] private LayerMask layermask;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (layermask == (layermask | (1 << layer_number)))
+            if (layermask == (layermask | (1 << collision.gameObject.layer)))
             {
                 boostraper.playerController.GetScore(points);
                 gameObject.SetActive(false);
