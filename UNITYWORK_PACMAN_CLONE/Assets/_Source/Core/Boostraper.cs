@@ -12,16 +12,27 @@ namespace Core
         public PlayerController playerController { get; private set; }
         public PlayerModel playerModel { get; private set; }
 
-        [SerializeField] public GhostAiMovement ghost;
+        [SerializeField] public RedGhostAiMovement redGhost;
+        [SerializeField] public PinkGhostAiMovement pinkGhost;
+        [SerializeField] public BlueGhostAiMovement blueGhost;
+        //[SerializeField] public RedGhostAiMovement redGhost;
         public ModePerformer performer;
         void Start()
         {
             playerModel = new PlayerModel();
             playerController = new PlayerController(playerModel, playerView);
 
-            ghost.performer = new ModePerformer(ghost);
-            ghost._modeVagrancyStrategy = new VagrancyModeStrategy(ghost.randomDirection, ghost.gameObject, ghost.speed);
-            ghost._modePursuitStrategy = new PursuitModeStrategy(ghost.direction, ghost.gameObject, ghost.speed, ghost.playerTransform);
+            redGhost.performer = new ModePerformer(redGhost);
+            redGhost._modeVagrancyStrategy = new VagrancyModeStrategy(redGhost.randomDirection, redGhost.ghostRigidBody, redGhost.speed);
+            redGhost._modePursuitStrategy = new PursuitModeStrategy(redGhost.direction, redGhost.gameObject, redGhost.speed, redGhost.playerTransform, redGhost.ghostRigidBody);
+
+            pinkGhost.performer = new ModePerformer(pinkGhost);
+            pinkGhost._modeVagrancyStrategy = new VagrancyModeStrategy(pinkGhost.randomDirection, pinkGhost.ghostRigidBody, pinkGhost.speed);
+
+            blueGhost.performer = new ModePerformer(blueGhost);
+            blueGhost._runawayModeStrategy = new RunawayModeStrategy(blueGhost.direction, blueGhost.gameObject, blueGhost.speed, blueGhost.playerTransform, blueGhost.ghostRigidBody);
+            blueGhost._modeVagrancyStrategy = new VagrancyModeStrategy(blueGhost.randomDirection, blueGhost.ghostRigidBody, blueGhost.speed);
+            blueGhost._modePursuitStrategy = new PursuitModeStrategy(blueGhost.direction, blueGhost.gameObject, blueGhost.speed, blueGhost.playerTransform, blueGhost.ghostRigidBody);
         }
     }
 }

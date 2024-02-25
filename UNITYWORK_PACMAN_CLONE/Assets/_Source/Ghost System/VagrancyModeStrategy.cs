@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -8,34 +8,33 @@ public class VagrancyModeStrategy : IModeStrategy
 {
     public int randomDirection;
     private float speed;
-    private GameObject ghost;
-    public VagrancyModeStrategy(int rd, GameObject go, float sp)
+    private Rigidbody2D rigidBody;
+    Vector2 direction = Vector2.zero;
+    public VagrancyModeStrategy(int rd, Rigidbody2D rb, float sp)
     {
         randomDirection = rd;
         speed = sp;
-        ghost = go;
+        rigidBody = rb;
     }
     public void PerformMode()
     {
         if (randomDirection == 0)
         {
-            Debug.Log("Вверх");
-            ghost.transform.Translate(Vector2.up * speed * Time.deltaTime);
+            direction = Vector2.up;
         }
         else if (randomDirection == 1)
         {
-            Debug.Log("Вниз");
-            ghost.transform.Translate(Vector2.down * speed * Time.deltaTime);
+            direction = Vector2.down;
         }
         else if (randomDirection == 2)
         {
-            Debug.Log("Вправо");
-            ghost.transform.Translate(Vector2.right * speed * Time.deltaTime);
+            direction = Vector2.right;
         }
         else if (randomDirection == 3)
         {
-            Debug.Log("Влево");
-            ghost.transform.Translate(Vector2.left * speed * Time.deltaTime);
+            direction = Vector2.left;
         }
+
+        rigidBody.velocity = direction * speed;
     }
 }
