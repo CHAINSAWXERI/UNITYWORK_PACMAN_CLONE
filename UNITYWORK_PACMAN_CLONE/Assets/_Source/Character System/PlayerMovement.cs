@@ -7,6 +7,9 @@ namespace CharacterSystem
     {
         [SerializeField] private LayerMask ghostLayer;
         [SerializeField] public float speed;
+        [SerializeField] public DeathLooker deathLooker;
+        [SerializeField] private Restarting restarting;
+        private int marker;
         private Rigidbody2D rb;
 
         void Start()
@@ -28,7 +31,9 @@ namespace CharacterSystem
         {
             if (ghostLayer == (ghostLayer | (1 << collision.gameObject.layer)))
             {
-                Debug.Log("СМЕРТЬ");
+                deathLooker.lives[marker].SetActive(false);
+                marker++;
+                restarting.Restart();
             }
         }
     }

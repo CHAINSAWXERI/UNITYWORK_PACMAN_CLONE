@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class DeathLooker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    [SerializeField] public List<GameObject> lives = new List<GameObject>();
+    [SerializeField] public GameObject DeathScreen;
+    private int x;
     void Update()
     {
-        
+        x = 0;
+        for (int i = 0; i < lives.Count; i++)
+        {
+            if (lives[i].active == false)
+            {
+                x++;
+            }
+        }
+        if (x == lives.Count)
+        {
+            DeathScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }
