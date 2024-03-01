@@ -19,6 +19,7 @@ namespace CharacterSystem
 
         void Update()
         {
+            Debug.Log(Time.timeScale);
             float horizontalMove = Input.GetAxis("Horizontal");
             float verticalMove = Input.GetAxis("Vertical");
 

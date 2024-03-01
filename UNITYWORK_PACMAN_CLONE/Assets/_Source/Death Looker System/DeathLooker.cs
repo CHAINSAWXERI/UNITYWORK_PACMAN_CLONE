@@ -6,6 +6,7 @@ public class DeathLooker : MonoBehaviour
 {
     [SerializeField] public List<GameObject> lives = new List<GameObject>();
     [SerializeField] public GameObject DeathScreen;
+    [SerializeField] private TimeControll timeController;
     private int x;
     void Update()
     {
@@ -20,7 +21,7 @@ public class DeathLooker : MonoBehaviour
         if (x == lives.Count)
         {
             DeathScreen.SetActive(true);
-            Time.timeScale = 0;
+            timeController.StopTime();
         }
     }
 }

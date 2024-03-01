@@ -6,7 +6,7 @@ public class OrangeGhostAiMovement : MonoBehaviour
 {
     public Transform[] waypoints;
     public float speed = 1.0f;
-    private int currentWaypoint = 0;
+    public int currentWaypoint = 0;
 
     private Rigidbody2D rb;
 

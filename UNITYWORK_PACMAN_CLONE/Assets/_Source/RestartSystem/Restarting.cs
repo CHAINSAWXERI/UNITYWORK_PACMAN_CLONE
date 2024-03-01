@@ -11,26 +11,30 @@ public class Restarting : MonoBehaviour
     [SerializeField] public GameObject BlueGhost;
     [SerializeField] public GameObject OrangeGhost;
     [SerializeField] public GameObject Character;
-    public Transform _redGhostTransform { private get; set; }
-    public Transform _pinkGhostTransform { private get; set; }
-    public Transform _blueGhostTransform { private get; set; }
-    public Transform _orangeGhostTransform { private get; set; }
-    public Transform _characterGhostTransform { private get; set; }
+
+    [SerializeField] public GameObject _redGhostTransform;
+    [SerializeField] public GameObject _pinkGhostTransform;
+    [SerializeField] public GameObject _blueGhostTransform;
+    [SerializeField] public GameObject _orangeGhostTransform;
+    [SerializeField] public GameObject _characterGhostTransform;
+
+    [SerializeField] public OrangeGhostAiMovement OrangeGhostMovement;
     void Start()
     {
-        _redGhostTransform.position = RedGhost.transform.position;
-        _pinkGhostTransform.position = PinkGhost.transform.position;
-        _blueGhostTransform.position = BlueGhost.transform.position;
-        _orangeGhostTransform.position = OrangeGhost.transform.position;
-        _characterGhostTransform.position = Character.transform.position;
+        _redGhostTransform.transform.position = RedGhost.transform.position;
+        _pinkGhostTransform.transform.position = PinkGhost.transform.position;
+        _blueGhostTransform.transform.position = BlueGhost.transform.position;
+        _orangeGhostTransform.transform.position = OrangeGhost.transform.position;
+        _characterGhostTransform.transform.position = Character.transform.position;
     }
 
     public void Restart()
     {
-        RedGhost.transform.position = _redGhostTransform.position;
-        PinkGhost.transform.position = _pinkGhostTransform.position;
-        BlueGhost.transform.position = _blueGhostTransform.position;
-        OrangeGhost.transform.position = _orangeGhostTransform.position;
-        Character.transform.position = _characterGhostTransform.position;
+        RedGhost.transform.position = _redGhostTransform.transform.position;
+        PinkGhost.transform.position = _pinkGhostTransform.transform.position;
+        BlueGhost.transform.position = _blueGhostTransform.transform.position;
+        OrangeGhost.transform.position = _orangeGhostTransform.transform.position;
+        OrangeGhostMovement.currentWaypoint = 0;
+        Character.transform.position = _characterGhostTransform.transform.position;
     }
 }
